@@ -1,18 +1,11 @@
+
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JTextPane;
-import javax.swing.JTextField;
-import java.awt.FlowLayout;
 import javax.swing.JPanel;
-import java.awt.Window.Type;
-import java.awt.Toolkit;
-import java.awt.Color;
-import java.awt.SystemColor;
 
 public class AddBook {
 

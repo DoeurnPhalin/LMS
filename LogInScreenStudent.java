@@ -1,6 +1,7 @@
+
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -32,7 +33,7 @@ public class LogInScreenStudent extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -152,13 +153,15 @@ public class LogInScreenStudent extends JFrame {
 		lblpasErr.setForeground(Color.RED);
 		lblpasErr.setBounds(240, 320, 264, 21);
 		contentPane.add(lblpasErr);
-
-
 	}
+
+
+	
 	
 	public void close() {
 		this.dispose();
 //		WindowEvent winClosingEvent = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
 //		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
 	}
+	
 }

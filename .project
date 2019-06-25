@@ -3,6 +3,8 @@
 	<name>LMS</name>
 	<comment></comment>
 	<projects>
+		<project>Library</project>
+		<project>RemoteSystemsTempFiles</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
