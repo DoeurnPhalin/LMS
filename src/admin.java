@@ -22,7 +22,6 @@ import java.awt.Toolkit;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 public class admin extends JFrame {
-	public int loggedIn=2;
 	private JPanel contentPane;
 	JPanel panel = new JPanel();
 	JPanel panel_1 = new JPanel();
@@ -251,6 +250,7 @@ public class admin extends JFrame {
 	public static int getLibraian() {
 		return libraian;
 	}
+
 
 	//Loan Method
 	public void loan2() {

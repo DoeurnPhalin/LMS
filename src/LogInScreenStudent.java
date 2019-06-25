@@ -152,6 +152,8 @@ public class LogInScreenStudent extends JFrame {
 		lblpasErr.setForeground(Color.RED);
 		lblpasErr.setBounds(240, 320, 264, 21);
 		contentPane.add(lblpasErr);
+
+
 	}
 	
 	public void close() {
