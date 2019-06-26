@@ -52,16 +52,14 @@ public class admin extends JFrame {
 	int x=800;
 	int y=500;
 	public admin(int _libraian) {
-		this.libraian=_libraian;
 		//Set bound and set Jframe to stop on close.
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, x, y);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		admin.libraian=_libraian;
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setMargin(new Insets(3, 3, 3, 3));
 		menuBar.setBackground(SystemColor.activeCaption);
@@ -314,6 +312,7 @@ public class admin extends JFrame {
 		
 		btnApprove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 			}
 		});
 		btnApprove.setBounds(575, 257, 89, 23);
@@ -395,6 +394,7 @@ public class admin extends JFrame {
 			
 			btnApprove.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					
 				}
 			});
 			btnApprove.setBounds(575, 257, 89, 23);

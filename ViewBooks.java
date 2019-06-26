@@ -27,6 +27,8 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class ViewBooks {
 
@@ -37,6 +39,9 @@ public class ViewBooks {
 	private JPanel panel_1;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private JButton btnEdit;
+	private JButton btnExport;
+	private JButton btnDelete;
 
 	/**
 	 * Launch the application.
@@ -68,14 +73,14 @@ public class ViewBooks {
 		frmBook = new JFrame();
 		frmBook.getContentPane().setBackground(SystemColor.inactiveCaption);
 		frmBook.setTitle("Books");
-		frmBook.setBounds(100, 100, 800, 600);
+		frmBook.setBounds(100, 100, 1024, 600);
 		frmBook.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		String data[][]=null;
 		String column[]=null;
 		try{
 			Connection con=DB.getConnection();
-			PreparedStatement ps=con.prepareStatement("select * from book",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			PreparedStatement ps=con.prepareStatement("select * from books",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			ResultSet rs=ps.executeQuery();
 			
 			ResultSetMetaData rsmd=rs.getMetaData();
@@ -119,19 +124,19 @@ public class ViewBooks {
 		
 		panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaption);
-		panel.setBounds(108, 16, 676, 47);
+		panel.setBounds(128, 16, 870, 47);
 		frmBook.getContentPane().add(panel);
 		
 		textField = new JTextField();
-		textField.setBounds(0, 3, 275, 30);
+		textField.setBounds(65, 3, 275, 30);
 		textField.setColumns(10);
 		
 		JSpinner spinner = new JSpinner();
-		spinner.setBounds(411, 3, 80, 31);
+		spinner.setBounds(528, 3, 80, 31);
 		spinner.setModel(new SpinnerListModel(new String[] {"Tittle", "Author", "ISBN"}));
 		JButton btnSearch = new JButton("Search");
 		btnSearch.setBackground(SystemColor.activeCaption);
-		btnSearch.setBounds(281, 3, 100, 30);
+		btnSearch.setBounds(378, 3, 100, 30);
 		panel.setLayout(null);
 		panel.add(textField);
 		panel.add(spinner);
@@ -139,38 +144,83 @@ public class ViewBooks {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		table.setBackground(SystemColor.inactiveCaption);
 		JScrollPane sp=new JScrollPane(table);
-		sp.setBounds(108, 62, 676, 499);
+		sp.setBounds(128, 62, 870, 499);
 		sp.setBackground(SystemColor.inactiveCaption);
 		
 		frmBook.getContentPane().add(sp);
 		
 		panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.inactiveCaption);
-		panel_1.setBounds(0, 84, 108, 477);
+		panel_1.setBounds(0, 74, 130, 487);
 		frmBook.getContentPane().add(panel_1);
 		
-		btnNewButton = new JButton("New button");
+		btnNewButton = new JButton(" Add book");
+		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\icons8-plus-20.png"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ChooseFile cf = new ChooseFile();
-				cf.setVisible(true);
-				System.out.println(cf.getPath());
-				cf.dispose();
+				AddBook book= new AddBook();
+				book.frmInsertBook.setVisible(true);
 				
 			}
 		});
 		btnNewButton.setBackground(SystemColor.activeCaption);
-		btnNewButton.setBounds(0, 0, 108, 50);
+		btnNewButton.setBounds(1, 0, 125, 50);
 		
-		btnNewButton_1 = new JButton("New button");
+		btnNewButton_1 = new JButton(" Import");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChooseFile cf = new ChooseFile();
+				cf.setVisible(true);
+				String path=cf.getPath();
+				System.out.println(path);
+				cf.dispose();
+				
+			}
+		});
+		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_1.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\export_20px.png"));
 		btnNewButton_1.setBackground(SystemColor.activeCaption);
-		btnNewButton_1.setBounds(0, 50, 108, 50);
+		btnNewButton_1.setBounds(1, 104, 125, 50);
 		panel_1.setLayout(null);
 		panel_1.add(btnNewButton);
 		panel_1.add(btnNewButton_1);
 		
+		btnEdit = new JButton(" Edit");
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				int row = table.getSelectedRow();
+//				System.out.println(table.getCellEditor(1, 1).getCellEditorValue().toString());
+				String callno = null;
+			    int[] selectedRow = table.getSelectedRows();
+			    for (int i = 0; i < selectedRow.length; i++) {
+			    	callno = (String) table.getValueAt(selectedRow[i], 0);
+			      }
+			    System.out.println("Selected: " + callno +selectedRow);
+			}
+		});
+		btnEdit.setBackground(SystemColor.activeCaption);
+		btnEdit.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\edit_property_20px.png"));
+		btnEdit.setHorizontalAlignment(SwingConstants.LEFT);
+		btnEdit.setBounds(1, 52, 125, 50);
+		panel_1.add(btnEdit);
+		
+		btnExport = new JButton(" Export");
+		btnExport.setHorizontalAlignment(SwingConstants.LEFT);
+		btnExport.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\import_20px.png"));
+		btnExport.setBackground(SystemColor.activeCaption);
+		btnExport.setBounds(0, 156, 126, 50);
+		panel_1.add(btnExport);
+		
+		btnDelete = new JButton(" Delete");
+		btnDelete.setHorizontalAlignment(SwingConstants.LEFT);
+		btnDelete.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\delete_sign_20px.png"));
+		btnDelete.setBackground(SystemColor.activeCaption);
+		btnDelete.setBounds(1, 208, 125, 50);
+		panel_1.add(btnDelete);
+		
 		JLabel label = new JLabel("");
-		label.setBounds(0, 0, 102, 82);
+		label.setBounds(0, 0, 118, 106);
 		frmBook.getContentPane().add(label);
 	}
 }
