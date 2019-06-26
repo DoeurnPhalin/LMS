@@ -243,7 +243,7 @@ public class admin extends JFrame {
 				
 			}
 		});
-		
+		loan2();
 		
 	}
 	
@@ -274,10 +274,12 @@ public class admin extends JFrame {
 		
 		
 		
+		
 		textField = new JTextField();
 		textField.setBounds(100, 98, 438, 31);
 		panel_1.add(textField);
 		textField.setColumns(10);
+		
 		
 		btnCheck.setBounds(560, 102, 89, 23);
 		btnCheck.addActionListener(new ActionListener() {

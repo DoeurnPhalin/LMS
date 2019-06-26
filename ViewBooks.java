@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.FlowLayout;
@@ -24,6 +25,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewBooks {
 
@@ -147,6 +150,15 @@ public class ViewBooks {
 		frmBook.getContentPane().add(panel_1);
 		
 		btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ChooseFile cf = new ChooseFile();
+				cf.setVisible(true);
+				System.out.println(cf.getPath());
+				cf.dispose();
+				
+			}
+		});
 		btnNewButton.setBackground(SystemColor.activeCaption);
 		btnNewButton.setBounds(0, 0, 108, 50);
 		
