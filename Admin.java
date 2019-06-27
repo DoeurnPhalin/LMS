@@ -8,6 +8,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -153,8 +156,9 @@ public class Admin extends JFrame {
 		btnIssus.setBounds(0, 0, 135, 40);
 		panel.add(btnIssus);
 		
-		JButton btnNewButton = new JButton("              Return");
+		JButton btnNewButton = new JButton("       Return");
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\undo_15px.png"));
 		btnNewButton.setBackground(SystemColor.activeCaption);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -165,18 +169,22 @@ public class Admin extends JFrame {
 		btnNewButton.setBounds(136, 0, 135, 40);
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Book");
+		JButton btnNewButton_1 = new JButton("       Book");
+		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_1.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\Book Shelf_15px.png"));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ViewBooks books= new ViewBooks();
-				books.frmBook.setVisible(true);
+				 ViewBooks view = new ViewBooks();
+				 view.frmBook.setVisible(true);
 			}
 		});
 		btnNewButton_1.setBackground(SystemColor.activeCaption);
 		btnNewButton_1.setBounds(272, 0, 135, 40);
 		panel.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("User");
+		JButton btnNewButton_2 = new JButton("       User");
+		btnNewButton_2.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_2.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\user_15px.png"));
 		btnNewButton_2.setBackground(SystemColor.activeCaption);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -185,7 +193,9 @@ public class Admin extends JFrame {
 		btnNewButton_2.setBounds(408, 0, 135, 40);
 		panel.add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("Report");
+		JButton btnNewButton_3 = new JButton("       Report");
+		btnNewButton_3.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_3.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\report_card_15px.png"));
 		btnNewButton_3.setBackground(SystemColor.activeCaption);
 		btnNewButton_3.setBounds(544, 0, 135, 40);
 		panel.add(btnNewButton_3);
@@ -200,48 +210,48 @@ public class Admin extends JFrame {
 		JLabel label = new JLabel("");
 		label.setBounds(441, 16, 0, 0);
 		panel_1.add(label);
-		JButton btnGg = new JButton("OK");
-		btnGg.setBounds(699, 359, 75, 23);
-		panel_1.add(btnGg);
-		
-		
-		//Object
-		
-		
-		
-		btnGg.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-//				try{
-//						loan2();
-//					Class.forName("com.mysql.jdbc.Driver");
-//
-//					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/my_db","root","");
-//					String maxSalary="notSet";
-//					label.setText("Connected");
-//					  PreparedStatement st = con.prepareStatement("select * from student where first_name='Phalin'");
-//					    ResultSet r1=st.executeQuery();
-//
-//					     while(r1.next()) {
-//
-//					           maxSalary =  r1.getString("first_name")+""+r1.getString("last_name");
-//					           System.out.print("The student name is :");
-//							   System.out.println( maxSalary);
-//					      }
-//
-//					    
-//					    label.setText(maxSalary);
-//					con.close();
-//
-//					}catch(Exception e){ 
-//						System.out.println(e);
-//					}
+//		JButton btnGg = new JButton("OK");
+//		btnGg.setBounds(699, 359, 75, 23);
+//		panel_1.add(btnGg);
+//		
+//		
+//		//Object
+//		
+//		
+//		
+//		btnGg.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
 //				
-				
-				
-				
-			}
-		});
+////				try{
+////						loan2();
+////					Class.forName("com.mysql.jdbc.Driver");
+////
+////					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/my_db","root","");
+////					String maxSalary="notSet";
+////					label.setText("Connected");
+////					  PreparedStatement st = con.prepareStatement("select * from student where first_name='Phalin'");
+////					    ResultSet r1=st.executeQuery();
+////
+////					     while(r1.next()) {
+////
+////					           maxSalary =  r1.getString("first_name")+""+r1.getString("last_name");
+////					           System.out.print("The student name is :");
+////							   System.out.println( maxSalary);
+////					      }
+////
+////					    
+////					    label.setText(maxSalary);
+////					con.close();
+////
+////					}catch(Exception e){ 
+////						System.out.println(e);
+////					}
+////				
+//				
+//				
+//				
+//			}
+//		});
 		loan2();
 		
 	}
@@ -266,7 +276,7 @@ public class Admin extends JFrame {
 		JButton btnCancel = new JButton(" Cancel ");
 		JButton btnApprove = new JButton("Approve");
 		JLabel lblIsbn = new JLabel("ISBN \\ Barcode");
-		JButton btnCheck = new JButton("  Check  ");
+//		JButton btnCheck = new JButton("  Check  ");
 		JLabel lblStatus = new JLabel("");
 		JLabel lblMessage = new JLabel("");
 		
@@ -280,25 +290,25 @@ public class Admin extends JFrame {
 		textField.setColumns(10);
 		
 		
-		btnCheck.setBounds(560, 102, 89, 23);
-		btnCheck.addActionListener(new ActionListener() {
-			
-			 
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				String isbn= textField.getText();
-				System.out.println(isbn);
-				if(isbn.compareTo("true")==0) {
-					lblStatus.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\check.png"));
-					lblMessage.setText("The Book is able to borrow.");
-				}
-				else {
-					lblStatus.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\cancel_50px.png"));
-					lblMessage.setText("The book is unable to borrow or has been reserved.");
-				}
-			}
-		});
-		panel_1.add(btnCheck);
+//		btnCheck.setBounds(560, 102, 89, 23);
+//		btnCheck.addActionListener(new ActionListener() {
+//			
+//			 
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				String isbn= textField.getText();
+//				System.out.println(isbn);
+//				if(isbn.compareTo("true")==0) {
+//					lblStatus.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\check.png"));
+//					lblMessage.setText("The Book is able to borrow.");
+//				}
+//				else {
+//					lblStatus.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\cancel_50px.png"));
+//					lblMessage.setText("The book is unable to borrow or has been reserved.");
+//				}
+//			}
+//		});
+//		panel_1.add(btnCheck);
 		
 		lblIsbn.setBounds(100, 77, 89, 23);
 		panel_1.add(lblIsbn);
@@ -311,6 +321,7 @@ public class Admin extends JFrame {
 		lblPatronId.setBounds(100, 153, 55, 14);
 		panel_1.add(lblPatronId);
 		
+		btnApprove.setBackground(SystemColor.activeCaption);
 		btnApprove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String isbn= textField.getText();
@@ -334,7 +345,7 @@ public class Admin extends JFrame {
 						if(rs.next()) {
 							int number= Integer.parseInt( rs.getString(1));
 							if(number<=1) {
-								lblMessage.setText("The book cannot be borrowed.");	
+								lblMessage.setText("The book cannot be borrowed or it has been reserved.");	
 							}
 							else {
 								try {
@@ -347,16 +358,20 @@ public class Admin extends JFrame {
 										String sql= "insert into issuses (patronId,bookId,issusDate,expectedReturn) value ("+patron+", "+isbn+", now(),DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY))";
 										ps = con.prepareStatement(sql);
 										ps.execute();
-											System.out.println("Executed");
-											ps=con.prepareStatement("select LAST_INSERT_ID() from issuses");
-											rs=ps.executeQuery();
-											if(rs.next()) {
-												
-												System.out.println(rs.getInt(1));
-											}
-											String issusId= rs.getString(1);
-											String sql2= "insert into charts (userId,bookId,issusId,expectedReturn) value ("+patron+", "+isbn+", "+issusId+", DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY))";
 										
+											System.out.println("Executed");
+											ps=con.prepareStatement("select MAX(issusId) from issuses");
+											rs=ps.executeQuery();
+											rs.next();
+											String issusId=rs.getString(1);
+											String sql2= "insert into charts (patronId,bookId,issusId,expectedReturn) value ("+patron+", "+isbn+", "+issusId+", DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY))";
+											ps=con.prepareStatement(sql2);
+											ps.execute();
+											
+											String sql3= "update books set number=(number-1) where bookId="+isbn;
+											ps=con.prepareStatement(sql3);
+											ps.execute();
+											
 										
 									}
 								} catch (SQLException e2) {
@@ -385,6 +400,13 @@ public class Admin extends JFrame {
 		btnApprove.setBounds(575, 257, 89, 23);
 		panel_1.add(btnApprove);
 		
+		btnCancel.setBackground(SystemColor.activeCaption);
+		btnCancel.addActionListener(new ActionListener (){
+			public void actionPerformed(ActionEvent arg0) {
+				textField.setText("");
+				textField_1.setText("");
+			}
+			});
 		btnCancel.setBounds(482, 257, 89, 23);
 		panel_1.add(btnCancel);
 		
@@ -461,6 +483,84 @@ public class Admin extends JFrame {
 			
 			btnApprove.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					String isbn= textField.getText();
+					String patron= textField_1.getText();
+					if(isbn.isEmpty()) {
+						lblStatus.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\check.png"));
+						lblMessage.setForeground(Color.red);
+						lblMessage.setText("Book ID can't be empty!");
+					}
+					if(textField_1.getText().isEmpty()){
+						lblStatus.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\cancel_50px.png"));
+						lblMessage.setForeground(Color.red);
+						lblMessage.setText("Patron ID can't be empty.");
+					}
+					else {
+						
+						try {
+							Connection con=DB.getConnection();
+							PreparedStatement ps=con.prepareStatement("Select* from charts where bookId= "+isbn+" and patronId="+patron,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+							ResultSet rs=ps.executeQuery();
+							if(rs.next()) {
+								int issusId= rs.getInt(3);
+								String expectedReturn= rs.getString("expectedReturn");
+								ps.execute("delete from charts where patronId="+patron+" and bookId="+isbn);
+								System.out.println("charts");
+								ps.execute("update issuses set returnDate=now() where issusId="+issusId);
+								System.out.println("Issus");
+								ps.execute("update books set number=(number+1) where bookId="+isbn);
+								System.out.println("book");
+								
+								lblMessage.setForeground(Color.green);
+								lblMessage.setText("Book return has been recorded.");
+//								int days = Days.daysBetween(new SimpleDateFormat("yyyy-dd-MM").parse(expectedReturn)).getDays();
+//								System.out.println(days*1000+" Riel");
+							
+							}
+							else {
+								lblMessage.setForeground(Color.yellow);
+								lblMessage.setText("You have entered wrong book ID of patron ID");
+//									try {
+//										ps=con.prepareStatement("select bookID from charts where bookId="+ Integer.parseInt(isbn)+" and patronId="+textField_1.getText(),ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+//										rs=ps.executeQuery();
+//										if(rs.next()) {
+//											lblMessage.setText("You already borrow this book.");
+//										}
+//										else {
+//											String sql= "insert into issuses (patronId,bookId,issusDate,expectedReturn) value ("+patron+", "+isbn+", now(),DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY))";
+//											ps = con.prepareStatement(sql);
+//											ps.execute();
+//											
+//												System.out.println("Executed");
+//												ps=con.prepareStatement("select MAX(issusId) from issuses");
+//												rs=ps.executeQuery();
+//												rs.next();
+//												String issusId=rs.getString(1);
+//												String sql2= "insert into charts (patronId,bookId,issusId,expectedReturn) value ("+patron+", "+isbn+", "+issusId+", DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY))";
+//												ps=con.prepareStatement(sql2);
+//												ps.execute();
+//												
+//												String sql3= "update books set number=(number-1) where bookId="+isbn;
+//												ps=con.prepareStatement(sql3);
+//												ps.execute();
+//												
+//											
+//										}
+//									} catch (SQLException e2) {
+//										// TODO: handle exception
+//										System.out.println(e2.getMessage());
+//									}
+//								}
+							}
+						} catch (SQLException e) {
+							// TODO: handle exception
+							lblMessage.setText("You entered improperly bookId or ISBN");
+						}
+						
+						
+						
+					}
+					
 					
 				}
 			});

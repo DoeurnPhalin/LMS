@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -21,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 public class ViewBooks {
 
@@ -133,6 +135,20 @@ public class ViewBooks {
 		panel.add(textField);
 		panel.add(spinner);
 		panel.add(btnSearch);
+		
+		JButton btnRefresh = new JButton(" Refresh");
+		btnRefresh.setBackground(SystemColor.activeCaption);
+		btnRefresh.setHorizontalAlignment(SwingConstants.LEFT);
+		btnRefresh.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\restart_15px.png"));
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ViewBooks view = new ViewBooks();
+				view.frmBook.setVisible(true);
+				frmBook.dispose();
+			}
+		});
+		btnRefresh.setBounds(762, 3, 108, 33);
+		panel.add(btnRefresh);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		table.setBackground(SystemColor.inactiveCaption);
 		JScrollPane sp=new JScrollPane(table);
@@ -188,6 +204,8 @@ public class ViewBooks {
 			    for (int i = 0; i < selectedRow.length; i++) {
 			    	callno = (String) table.getValueAt(selectedRow[i], 0);
 			      }
+			    AddBook book= new AddBook(Integer.parseInt(callno));
+				book.frmInsertBook.setVisible(true);
 			    System.out.println("Selected: " + callno +selectedRow);
 			}
 		});
@@ -205,6 +223,81 @@ public class ViewBooks {
 		panel_1.add(btnExport);
 		
 		btnDelete = new JButton(" Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String callno = null;
+			    int[] selectedRow = table.getSelectedRows();
+			    for (int i = 0; i < selectedRow.length; i++) {
+			    	callno = (String) table.getValueAt(selectedRow[i], 0);
+			    }
+			    
+			    try {
+			    	Connection con=DB.getConnection();
+			    	con.prepareStatement("delete from books where bookId="+callno).execute();
+				} catch (SQLException e2) {
+					// TODO: handle exception
+					System.out.println(e2.getMessage());
+				}
+			     ViewBooks view = new ViewBooks();
+			     view.frmBook.setVisible(true);
+			     frmBook.dispose();
+			    
+			   
+//			    table.removeAll();
+//			    String data[][]=null;
+//				String column[]=null;
+//				
+//				try{
+//					Connection con=DB.getConnection();
+//					PreparedStatement ps=con.prepareStatement("select * from books",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+//					ResultSet rs=ps.executeQuery();
+//					
+//					ResultSetMetaData rsmd=rs.getMetaData();
+//					int cols=rsmd.getColumnCount();
+//					column=new String[cols];
+//					for(int i=1;i<=cols;i++){
+//						column[i-1]=rsmd.getColumnName(i);
+//					}
+//					
+//					rs.last();
+//					int rows=rs.getRow();
+//					rs.beforeFirst();
+//
+//					data=new String[rows][cols];
+//					int count=0;
+//					while(rs.next()){
+//						for(int i=1;i<=cols;i++){
+//							data[count][i-1]=rs.getString(i);
+//						}
+//						count++;
+//					}
+//					con.close();
+//				}catch(Exception e3){System.out.println(e);}
+//				
+//				table = new JTable(data,column);
+//				table.getTableHeader().setBackground(Color.gray);
+////				table.
+////				for(int i=0;i<=table.getColumnCount();i++) {
+////					System.out.println(table.getColumnCount());
+////					if (i%2==0) {
+////						DefaultTableCellRenderer rendar1 = new DefaultTableCellRenderer();
+//////					    rendar1.setForeground(Color.gray);
+////					    rendar1.setBackground(Color.GRAY);
+////					    table.getColumnModel().getColumn(i).setCellRenderer(rendar1);
+////					}
+////				}
+//				table.getColumnModel().getColumn(0).setPreferredWidth(50);
+//				table.getColumnModel().getColumn(2).setPreferredWidth(200);
+//				table.getColumnModel().getColumn(3).setPreferredWidth(200);
+//				table.setVisible(true);
+//				sp.remove(table);
+//				sp.add(table);
+//				SwingUtilities.updateComponentTreeUI(frmBook);
+//				frmBook.invalidate();
+//				frmBook.validate();
+//				frmBook.repaint();
+			}
+		});
 		btnDelete.setHorizontalAlignment(SwingConstants.LEFT);
 		btnDelete.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\delete_sign_20px.png"));
 		btnDelete.setBackground(SystemColor.activeCaption);
