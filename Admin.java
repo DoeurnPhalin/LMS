@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.sql.*;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -21,7 +22,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
-public class admin extends JFrame {
+public class Admin extends JFrame {
 	private JPanel contentPane;
 	JPanel panel = new JPanel();
 	JPanel panel_1 = new JPanel();
@@ -36,7 +37,7 @@ public class admin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					admin frame = new admin(0);
+					Admin frame = new Admin(0);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +52,7 @@ public class admin extends JFrame {
 	// Set window side
 	int x=800;
 	int y=500;
-	public admin(int _libraian) {
+	public Admin(int _libraian) {
 		//Set bound and set Jframe to stop on close.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, x, y);
@@ -59,7 +60,7 @@ public class admin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		admin.libraian=_libraian;
+		Admin.libraian=_libraian;
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setMargin(new Insets(3, 3, 3, 3));
 		menuBar.setBackground(SystemColor.activeCaption);
@@ -312,6 +313,72 @@ public class admin extends JFrame {
 		
 		btnApprove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String isbn= textField.getText();
+				String patron= textField_1.getText();
+				if(isbn.isEmpty()) {
+					lblStatus.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\check.png"));
+					lblMessage.setForeground(Color.green);
+					lblMessage.setText("Please fill in the ISBN or Barcode");
+				}
+				if(textField_1.getText().isEmpty()){
+					lblStatus.setIcon(new ImageIcon("D:\\JAVA\\LMS\\img\\cancel_50px.png"));
+					lblMessage.setForeground(Color.red);
+					lblMessage.setText("Patron ID can't be empty.");
+				}
+				else {
+					 
+					try {
+						Connection con=DB.getConnection();
+						PreparedStatement ps=con.prepareStatement("select number from books where bookId="+ Integer.parseInt(isbn),ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+						ResultSet rs=ps.executeQuery();
+						if(rs.next()) {
+							int number= Integer.parseInt( rs.getString(1));
+							if(number<=1) {
+								lblMessage.setText("The book cannot be borrowed.");	
+							}
+							else {
+								try {
+									ps=con.prepareStatement("select bookID from charts where bookId="+ Integer.parseInt(isbn)+" and patronId="+textField_1.getText(),ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+									rs=ps.executeQuery();
+									if(rs.next()) {
+										lblMessage.setText("You already borrow this book.");
+									}
+									else {
+										String sql= "insert into issuses (patronId,bookId,issusDate,expectedReturn) value ("+patron+", "+isbn+", now(),DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY))";
+										ps = con.prepareStatement(sql);
+										ps.execute();
+											System.out.println("Executed");
+											ps=con.prepareStatement("select LAST_INSERT_ID() from issuses");
+											rs=ps.executeQuery();
+											if(rs.next()) {
+												
+												System.out.println(rs.getInt(1));
+											}
+											String issusId= rs.getString(1);
+											String sql2= "insert into charts (userId,bookId,issusId,expectedReturn) value ("+patron+", "+isbn+", "+issusId+", DATE_ADD(CURRENT_DATE(), INTERVAL 7 DAY))";
+										
+										
+									}
+								} catch (SQLException e2) {
+									// TODO: handle exception
+									System.out.println(e2.getMessage());
+								}
+							}
+						}
+						else {
+							lblMessage.setText("The book ID or ISBN you entered does not exist.");
+							
+						}
+					} catch (SQLException e) {
+						// TODO: handle exception
+						lblMessage.setText("You entered improperly bookId or ISBN");
+					}
+					
+					
+					
+				}
+				
+				
 				
 			}
 		});

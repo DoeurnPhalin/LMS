@@ -102,7 +102,7 @@ public static void main(String[] args) {
 								if(rs.getString(2).equals("librarian")) {
 									close();
 									int patron =rs.getInt(1);
-									admin adminPage =new admin(patron);
+									Admin adminPage =new Admin(patron);
 									adminPage.setVisible(true);
 //									System.out.println("is addmin");
 									
