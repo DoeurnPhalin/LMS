@@ -1,12 +1,11 @@
 package user;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,43 +16,53 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class rerserve extends JPanel {
+public class searchbook extends JPanel {
 	
 	JTable table = null;
+	String search = null;
+	static int patronId;
 
 	/**
 	 * Create the panel.
 	 */
-	public rerserve() {
+	public searchbook(String search, int patronId) {
+		
+		this.search = search;
+		this.patronId = patronId;
+		
+		System.out.println(this.search);
 		setForeground(Color.WHITE);
 
 		setBounds(245, 70, 638, 537);
 
 		this.setBackground(Color.WHITE);
 		this.setBorder(new LineBorder(Color.BLACK, 2, true));
-
 		this.setLayout(null);
 		
-		JLabel lblListBookIn = new JLabel("List All Reserve");
+		JLabel lblListBookIn = new JLabel("List All books");
 		lblListBookIn.setFont(new Font("ZCOOL QingKe HuangYou", Font.BOLD, 20));
 		lblListBookIn.setBounds(31, 6, 222, 31);
 		this.add(lblListBookIn);
+		
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(6, 49, 626, 436);
 		this.add(scrollPane);
 		
-		
 		String data[][]=null;
 		String column[]=null;
 		try{
 			Connection con=DB.getConnection();
-			PreparedStatement ps=con.prepareStatement("select reserves.bookID, books.tittle from reserves inner join books on reserves.bookID = books.bookID",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			PreparedStatement ps=con.prepareStatement("select * from books where tittle like '"+this.search+"%'",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+//			ps.setString(1, this.search);
 			ResultSet rs=ps.executeQuery();
 			
+			while(rs.next()) {
+				
 			ResultSetMetaData rsmd=rs.getMetaData();
 			int cols=rsmd.getColumnCount();
 			column=new String[cols];
@@ -72,8 +81,9 @@ public class rerserve extends JPanel {
 					data[count][i-1]=rs.getString(i);
 				}
 				count++;
-			}
+			}}
 			con.close();
+
 		}catch(Exception e){System.out.println(e);}
 		
 		
@@ -81,37 +91,31 @@ public class rerserve extends JPanel {
 		scrollPane.setViewportView(table);
 		
 		
-		
-		
-		JButton btnDelectBook = new JButton("REMOVE");
+		JButton btnDelectBook = new JButton("Add Reserve");
 		btnDelectBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String idreserve1 = null;
+				String bookIDget = null;
 			    int[] selectedRow = table.getSelectedRows();
 			    for (int i = 0; i < selectedRow.length; i++) {
-			    	idreserve1 = (String) table.getValueAt(selectedRow[i], 0);
+			    	bookIDget = (String) table.getValueAt(selectedRow[i], 0);
 			      }
-			    System.out.println("Selected: " + idreserve1);
 			    
-			    int bookID = Integer.valueOf(idreserve1);
-			    
-			    System.out.println(bookID);
+			    int bookID = Integer.valueOf(bookIDget);
+			    System.out.println("Selected: " + bookID);
 	
-				int i = reserveDB.remove(bookID);			
+				int i = reserveDB.save(patronId,bookID);			
 				if(i!=0){
-					JOptionPane.showMessageDialog(rerserve.this,"Books delete successfully!");
+					JOptionPane.showMessageDialog(searchbook.this,"Books added successfully!");
 					
 				}else{
-					JOptionPane.showMessageDialog(rerserve.this,"Sorry, unable to delete!");
+					JOptionPane.showMessageDialog(searchbook.this,"Sorry, unable to add!");
 				}
-			    
-		        
+				
 			}
 		});
-		
 		btnDelectBook.setFont(new Font(".SF NS Text", btnDelectBook.getFont().getStyle() | Font.BOLD, 20));
-		btnDelectBook.setBounds(478, 486, 154, 45);
+		btnDelectBook.setBounds(432, 486, 200, 45);
 		this.add(btnDelectBook);
 
 	}

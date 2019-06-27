@@ -7,7 +7,7 @@ public class DB {
 		Connection con=null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection("jdbc:mysql://localhost:8889/lms?autoReconnect=true&useSSL=false","root","root");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:8889/libraryManagement?autoReconnect=true&useSSL=false","root","root");
 		}catch(Exception e){System.out.println(e);}
 		return con;
 	}

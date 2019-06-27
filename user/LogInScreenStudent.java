@@ -16,6 +16,9 @@ import java.awt.Frame;
 import java.awt.SystemColor;
 import java.awt.TextArea;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
@@ -81,18 +84,27 @@ public class LogInScreenStudent extends JFrame {
 		btnLogIn.setBounds(302, 371, 132, 52);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String emailuser = email.getText();
-				String passworduser = String.valueOf(password.getPassword());
 				
-				if(emailuser.equals("user")&&passworduser.equals("user123")) {
-					HomeScreenStudent.main(new String[] {});
-					dispose();
-				}else {
-					JOptionPane.showMessageDialog(LogInScreenStudent.this, "Sorry, Username or Password Error","Login Error!", JOptionPane.ERROR_MESSAGE);
-					email.setText("");
-					password.setText("");
-				}
+				String username = email.getText();
+				String password1 = password.getText();
+
+				try{
+					Connection con=DB.getConnection();
+					PreparedStatement ps=con.prepareStatement("select patronId from user where username='"+username+"' and password='"+password1+"'");
+					ResultSet results= ps.executeQuery();
+					if(results.next()) {
+						int patronId = results.getInt(1);
+						System.out.println(patronId);
+							dispose();
+							HomeScreenStudent HomeScreen = new HomeScreenStudent(patronId);
+							HomeScreen.setVisible(true);							
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Username or password is incorrect");
+					}
 					
+					con.close();
+				}catch(Exception e1){System.out.println("error e1"+e1);}	
 			}
 		});
 		

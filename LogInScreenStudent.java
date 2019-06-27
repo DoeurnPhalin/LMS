@@ -99,20 +99,20 @@ public static void main(String[] args) {
 							PreparedStatement ps=con.prepareStatement(sql,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 							ResultSet rs=ps.executeQuery();
 							if(rs.next()) {
-								if(rs.getString(2).equals("librarian")) {
+//								if(rs.getString(2).equals("librarian")) {
 									close();
 									int patron =rs.getInt(1);
 									Admin adminPage =new Admin(patron);
 									adminPage.setVisible(true);
-//									System.out.println("is addmin");
+									System.out.println("is addmin");
 									
 								}
-								else {
-									lblmailErr.setText(rs.getString(2));
-									System.out.println(rs.getString(1));
-									
-								}
-							}
+//								else {
+//									lblmailErr.setText(rs.getString(2));
+//									System.out.println(rs.getString(1));
+//									
+//								}
+//							}
 							else {
 								lblmailErr.setText("Username or password is incorrect");
 							}		
