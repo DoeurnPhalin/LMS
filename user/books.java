@@ -22,14 +22,19 @@ import java.awt.event.ActionEvent;
 public class books extends JPanel {
 	
 	JTable table = null;
+	static int patronId;
 
 	/**
 	 * Create the panel.
+	 * @param patronId 
 	 */
-	public books() {
+	public books(int patronId) {
+		
+//		this.patronId = patronId;
+		
 		setForeground(Color.WHITE);
 
-		setBounds(313, 70, 533, 508);
+		setBounds(245, 70, 638, 537);
 
 		this.setBackground(Color.WHITE);
 		this.setBorder(new LineBorder(Color.BLACK, 2, true));
@@ -43,14 +48,14 @@ public class books extends JPanel {
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 49, 521, 404);
+		scrollPane.setBounds(6, 49, 626, 435);
 		this.add(scrollPane);
 		
 		String data[][]=null;
 		String column[]=null;
 		try{
 			Connection con=DB.getConnection();
-			PreparedStatement ps=con.prepareStatement("select * from books",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			PreparedStatement ps=con.prepareStatement("select bookId, tittle, author, publisher, category, type  from books",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			ResultSet rs=ps.executeQuery();
 			
 			ResultSetMetaData rsmd=rs.getMetaData();
@@ -84,14 +89,16 @@ public class books extends JPanel {
 		btnDelectBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String callno = null;
+				String bookIDget = null;
 			    int[] selectedRow = table.getSelectedRows();
 			    for (int i = 0; i < selectedRow.length; i++) {
-			    	callno = (String) table.getValueAt(selectedRow[i], 1);
+			    	bookIDget = (String) table.getValueAt(selectedRow[i], 0);
 			      }
-			    System.out.println("Selected: " + callno);
+			    
+			    int bookID = Integer.valueOf(bookIDget);
+			    System.out.println("Selected: " + bookID);
 	
-				int i = reserveDB.save(callno);			
+				int i = reserveDB.save(patronId, bookID);			
 				if(i!=0){
 					JOptionPane.showMessageDialog(books.this,"Books added successfully!");
 					
@@ -102,7 +109,7 @@ public class books extends JPanel {
 			}
 		});
 		btnDelectBook.setFont(new Font(".SF NS Text", btnDelectBook.getFont().getStyle() | Font.BOLD, 20));
-		btnDelectBook.setBounds(327, 457, 200, 45);
+		btnDelectBook.setBounds(432, 486, 200, 45);
 		this.add(btnDelectBook);
 
 	}

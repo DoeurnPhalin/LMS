@@ -26,18 +26,18 @@ public class borrow extends JPanel {
 	public borrow() {
 		setForeground(Color.WHITE);
 		
-		setBounds(313, 70, 533, 508);
+		setBounds(245, 70, 638, 537);
 		this.setBackground(Color.WHITE);
 		this.setBorder(new LineBorder(Color.BLACK, 2, true));
 		this.setLayout(null);
 		
-		JLabel lblListBookIn = new JLabel("List All Borrowed");
+		JLabel lblListBookIn = new JLabel("List All Borrowing");
 		lblListBookIn.setFont(new Font("ZCOOL QingKe HuangYou", Font.BOLD, 20));
 		lblListBookIn.setBounds(31, 6, 222, 31);
 		this.add(lblListBookIn);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 49, 521, 453);
+		scrollPane.setBounds(6, 49, 626, 482);
 		this.add(scrollPane);
 		
 		
@@ -45,7 +45,7 @@ public class borrow extends JPanel {
 		String column[]=null;
 		try{
 			Connection con=DB.getConnection();
-			PreparedStatement ps=con.prepareStatement("SELECT borrow.callno, books.name, books.author, books.publisher FROM borrow INNER JOIN books ON borrow.callno=books.callno",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			PreparedStatement ps=con.prepareStatement("SELECT issuses.bookId, books.tittle,issuses.issusDate, issuses.expectedReturn FROM issuses INNER JOIN books ON issuses.bookId = books.bookId",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			ResultSet rs=ps.executeQuery();
 			
 			ResultSetMetaData rsmd=rs.getMetaData();
