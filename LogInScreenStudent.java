@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.tools.Tool;
+
+import user.HomeScreenStudent;
+
 import javax.swing.SpringLayout;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -99,7 +102,7 @@ public static void main(String[] args) {
 							PreparedStatement ps=con.prepareStatement(sql,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 							ResultSet rs=ps.executeQuery();
 							if(rs.next()) {
-//								if(rs.getString(2).equals("librarian")) {
+								if(rs.getString(2).equals("librarian")) {
 									close();
 									int patron =rs.getInt(1);
 									Admin adminPage =new Admin(patron);
@@ -107,15 +110,18 @@ public static void main(String[] args) {
 									System.out.println("is addmin");
 									
 								}
-//								else {
-//									lblmailErr.setText(rs.getString(2));
-//									System.out.println(rs.getString(1));
-//									
-//								}
-//							}
-							else {
+								else if(rs.getString(2).equals("patron")){
+									close();
+									int patron =rs.getInt(1);
+									HomeScreenStudent student= new HomeScreenStudent(patron);
+									student.setVisible(true);
+									
+									
+								}
+						}
+						else {
 								lblmailErr.setText("Username or password is incorrect");
-							}		
+						}		
 							
 							con.close();
 						}catch(Exception e1){

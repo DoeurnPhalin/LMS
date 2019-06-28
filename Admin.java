@@ -188,6 +188,8 @@ public class Admin extends JFrame {
 		btnNewButton_2.setBackground(SystemColor.activeCaption);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				adduser user = new adduser();
+				user.setVisible(true);
 			}
 		});
 		btnNewButton_2.setBounds(408, 0, 135, 40);
@@ -565,6 +567,7 @@ public class Admin extends JFrame {
 				}
 			});
 			btnApprove.setBounds(575, 257, 89, 23);
+			btnApprove.setBackground(SystemColor.activeCaption);
 			panel_1.add(btnApprove);
 			
 //			btnCancel.setBounds(482, 257, 89, 23);

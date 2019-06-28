@@ -177,7 +177,7 @@ public class HomeScreenStudent extends JFrame {
 		
 		btnRefresh.setFont(new Font(".SF NS Text", btnRefresh.getFont().getStyle() | Font.BOLD, 20));
 		btnRefresh.setForeground(Color.BLUE);
-		btnRefresh.setBounds(729, 20, 117, 37);
+		btnRefresh.setBounds(729, 18, 117, 38);
 		contentPane.add(btnRefresh);
 		
 		textField = new JTextField();
@@ -204,7 +204,7 @@ public class HomeScreenStudent extends JFrame {
 			}
 		});
 		btnSearch.setFont(new Font(".SF NS Text", btnSearch.getFont().getStyle(), 20));
-		btnSearch.setBounds(517, 21, 101, 37);
+		btnSearch.setBounds(530, 18, 117, 38);
 		contentPane.add(btnSearch);
 
 	}
